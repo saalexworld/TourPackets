@@ -15,4 +15,12 @@ git branch -M master
 git push -u origin master
 
 3.
+При необходимости сменить гит репозиторий:
+git remote set-url origin https://github.com/saalexworld/TourPackets.git
+Проверить смену репозитория:
+cat .git/config
+
+4.
 Info
+Запуск селери:
+celery -A Tours worker --loglevel=INFO
