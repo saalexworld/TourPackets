@@ -21,19 +21,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-
-schema_view = get_schema_view(openapi.Info(title='Документация по Турам',
-                                            description='веб-сайт по поиску тур-путешествий',
-                                            default_version='v1'
-                                         ), public=True)
+schema_view = get_schema_view(openapi.Info(
+    title='Документация по Турам',
+    description='Веб-сайт по поиску тур-путешествий',
+    default_version='v1'
+), public=True)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', schema_view.with_ui('swagger')),
-    # path('api/v1/', include('Packets.urls')),
-    # path('api/v1/', include('Reviews.urls')),
-    # path('api/v1/', include('Payments.urls')),
     path('api/v1/', include('account.urls')),
 ]
 

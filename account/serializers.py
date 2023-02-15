@@ -3,9 +3,9 @@ from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from rest_framework   import serializers
 from .tasks import send_activation_code_celery
-# from .models import User
+
+
 User = get_user_model()
-# from .utils import send_activation_code
 
 
 class RegistrationSerializer(serializers.Serializer):
@@ -78,8 +78,7 @@ class LoginSerializer(serializers.Serializer):
         return data
 
 
-class ChangePasswordSerializer(
-    serializers.Serializer):
+class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(min_length=4, required=True)
     new_password = serializers.CharField(min_length=4, required=True)
     new_password_confirm = serializers.CharField(min_length=4, required=True)

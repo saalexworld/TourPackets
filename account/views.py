@@ -37,6 +37,7 @@ class LoginView(ObtainAuthToken):
 
 class LogoutView(APIView):
     permission_classes = [IsActivePermission]
+    
     def post(self, request):
         user = request.user
         Token.objects.filter(user=user).delete()
