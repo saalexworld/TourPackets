@@ -44,6 +44,7 @@ class User(AbstractBaseUser):
     def create_activation_code(self):
         code = get_random_string(length=10, allowed_chars='0123456789')
         self.activation_code = code
+        self.save()
 
     def has_module_perms(self, app_label):
         return self.is_staff
