@@ -1,12 +1,12 @@
 from django.db import models
-from Packets.models import Packet
+# from Packets.models import Packet
 
 
 class Payment(models.Model):
     customer_name = models.CharField(max_length=64, blank=True, null=True, default=None)
     customer_email = models.EmailField(blank=True, null=True, default=None)
     customer_phone = models.CharField(max_length=48, blank=True, null=True, default=None)
-    payment_packet = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='payment')
+    # payment_packet = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='payment')
     payment_tickets = models.CharField(max_length=250)
     nmb = models.IntegerField(default=1)
     price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
