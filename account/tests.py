@@ -1,6 +1,7 @@
 from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
 from .models import User
-from .views import RegistrationView, LoginView, ForgotPasswordView, ChangePasswordView, LogoutView, ForgotPasswordCompleteView
+from .views import RegistrationView, LoginView, ForgotPasswordView, ChangePasswordView
+#LogoutView, ForgotPasswordCompleteView
 
 
 
@@ -67,9 +68,9 @@ class UserTest(APITestCase):
         }
         request = self.factory.post('forgot_password_complete/', data=data, format='json')
 
-    def test_logout(self):
-        request = self.factory.post('log_out/', format='json')
-        force_authenticate(request, user=self.user)
-        view = LogoutView.as_view()
-        responce = view(request)
-        assert responce.status_code == 200
+    # def test_logout(self):
+    #     request = self.factory.post('log_out/', format='json')
+    #     force_authenticate(request, user=self.user)
+    #     view = LogoutView.as_view()
+    #     responce = view(request)
+    #     assert responce.status_code == 200

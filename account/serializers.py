@@ -36,6 +36,14 @@ class RegistrationSerializer(serializers.Serializer):
         return user
 
 
+class ReadInfoSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = User
+        fields = ('email', 'last_login')
+
+
 class ActivationSerializer(serializers.Serializer):
     email = serializers.CharField()
     code = serializers.CharField()
@@ -76,6 +84,19 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError('Email и пароль обязательны к заполнению')
         data['user'] = user
         return data
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(required=False)
+
+    class Meta:
+        model = User
+        fields = "__all__"
+    
+    def validate_email(self, email):
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('Пользователь с этим адресом электронной почты уже существует')
+        return email
 
 
 class ChangePasswordSerializer(serializers.Serializer):
