@@ -18,8 +18,10 @@ pip install --upgrade pip
 6) Устанавливаем в виртуальном окружении зависимости для проекта          
 pip install -r req.txt
 
-7) Создаём базу данных (для postgreSQL)                                   
-psql -> create database <name_db> ; -> \q
+7) Создаём базу данных (для postgreSQL)(<name_db> -> название базы данных любое)                                   
+psql 
+create database <name_db> ;
+\q
 
 8) Делаем миграции в создания базу данных                                 
 python manage.py makemigrations && python manage.py migrate
