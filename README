@@ -37,15 +37,12 @@ celery -A Tours worker --loglevel=INFO
 http://127.0.0.1:8000/admin/    
 
 
-ВАЖНО! Еслиы вы сделали git clone https://github.com/saalexworld/TourPackets.git данного проекта и в дальнейшем решите 
-сделать git pull origin <branch_name> то перед использованием этой команды обязательно проверьте url прикреплённого репозитория
-при помощи вот такой команды                                             
+ВАЖНО! Еслиы вы сделали git clone https://github.com/saalexworld/TourPackets.git данного проекта и в дальнейшем решите сделать git pull origin <branch_name> то перед использованием этой команды обязательно проверьте url прикреплённого репозитория при помощи вот такой команды                                             
 
 cat .git/config
 
 
-Если вы получили в описании url = https://github.com/saalexworld/TourPackets.git то необходимо сменить url репозитория
-при помощи вот такой команды                                             
+Если вы получили в описании url = https://github.com/saalexworld/TourPackets.git то необходимо сменить url репозитория при помощи вот такой команды                                             
 
 git remote set-url origin https://github.com/<...name repository owner...>
 
