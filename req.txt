@@ -1,5 +1,4 @@
 amqp
-slugify
 asgiref
 async-timeout
 billiard
