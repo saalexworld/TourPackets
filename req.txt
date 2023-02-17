@@ -25,6 +25,7 @@ kombu
 MarkupSafe
 packaging
 prompt-toolkit
+pillow
 psycopg2-binary
 PyJWT
 python-decouple
