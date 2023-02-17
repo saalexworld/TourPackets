@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] #['34.70.204.237', 'localhost']
 
 AUTH_USER_MODEL = 'account.User' # we're using our own User model
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'drf_yasg',
     'django_filters',
@@ -63,8 +64,9 @@ MIDDLEWARE = [
 
 # апи или домен нашего фронта пищется сюда
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:8000',
+    'http://localhost',
     'https://domain.com',
+    # '*' 
 ]
 
 CORS_ALLOWED_METHODS = [
@@ -189,8 +191,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20000000),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=110),}
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),}
 
 
 CELERY_BROKER_URL = "redis://localhost:6379"

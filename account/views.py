@@ -16,12 +16,12 @@ class RegistrationView(APIView):
         serializer = RegistrationSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-        return Response(f'Аккаунт успешно создан, мы выслали вам сообщение, активируйте свой аккаунт отправив нам свой активационный код для активации', status=201)
+        return Response(f'Аккаунт успешно создан, мы выслали вам сообщение перейдите по ссылке, чтобы активировать аккаунт', status=201)
 
 
 class ActivationView(APIView):
-    @swagger_auto_schema(request_body=ActivationSerializer())
-    def get(self, reqiuest, email, activation_code):
+    
+    def get(self, request, email, activation_code):
         user = User.objects.filter(email=email, activation_code=activation_code).first()
         if not user:
             return Response('Пользователь не существует', status=400)
@@ -32,16 +32,17 @@ class ActivationView(APIView):
 
 
 class LoginView(ObtainAuthToken):
+    
     serializer_class = LoginSerializer
 
 
-class LogoutView(APIView):
-    permission_classes = [IsActivePermission]
-    
-    def post(self, request):
-        user = request.user
-        Token.objects.filter(user=user).delete()
-        return Response('Вы вышли со своего аккаунта')
+# class LogoutView(APIView):
+#     permission_classes = [IsActivePermission]
+#     @swagger_auto_schema
+#     def post(self, request):
+        # user = request.user
+        # Token.objects.filter(user=user).delete()
+        # return Response('Вы вышли со своего аккаунта')
 
 
 class ChangePasswordView(APIView):

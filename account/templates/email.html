@@ -16,7 +16,7 @@
       </p>
       {{ activation_code }}
       <form method='post'>
-        <a class='text-center verify-button' href="{{ domain}}{% url 'activate' email activation_code %}">
+        <a class='text-center verify-button' href="{{domain}}{% url 'activate' email activation_code %}">
           <button type='button' class='btn'>Verify account</button>
         </a>
       </form>
