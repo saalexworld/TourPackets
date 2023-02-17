@@ -62,12 +62,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+
 # апи или домен нашего фронта пищется сюда
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-    'https://domain.com',
-    # '*' 
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+#CORS_ALLOWED_ORIGINS = [
+#   'http://localhost',
+#   'https://domain.com',
+    # '*'
+#]
 
 CORS_ALLOWED_METHODS = [
     'GET', 'POST', 'PATCH', 'PUT', 'OPTIONS', 'DELETE'
