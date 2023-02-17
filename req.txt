@@ -35,6 +35,7 @@ requests
 ruamel.yaml
 ruamel.yaml.clib
 six
+slugify
 sqlparse
 uritemplate
 urllib3
