@@ -47,8 +47,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
-    
+    #my apps:
     'account',
+    'Payments',
+    'Reviews',
+    'Packets',
 ]
 
 MIDDLEWARE = [

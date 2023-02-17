@@ -39,3 +39,5 @@ uritemplate
 urllib3
 vine
 wcwidth
+slugify
+Pillow
