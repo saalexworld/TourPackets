@@ -41,7 +41,7 @@ class ReadInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'last_login')
+        fields = ('email', 'last_login', 'date_joined', 'is_staff')
 
 
 class ActivationSerializer(serializers.Serializer):

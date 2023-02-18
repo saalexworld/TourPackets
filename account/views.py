@@ -10,12 +10,6 @@ from .serializers import RegistrationSerializer, \
 LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, \
 ForgotPasswordCompleteSerializer, ReadInfoSerializer, \
 UpdateUserSerializer
-# from django.contrib.auth import logout
-
-
-# class LogoutView(APIView):
-#     def logout_view(request):
-#         logout(request)
 
 
 class RegistrationView(APIView):
