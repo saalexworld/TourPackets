@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     #my apps:
     'account',
     'Packets',
+    'Payments',
+    'Reviews'
 ]
 
 MIDDLEWARE = [
