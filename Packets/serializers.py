@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Packet, PacketImage, Category, Hotel
 
 
@@ -8,8 +9,6 @@ class PacketSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     
-    
-
 class PacketImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = PacketImage
@@ -20,7 +19,6 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
-
 
 
 class HotelSerializer(serializers.ModelSerializer):

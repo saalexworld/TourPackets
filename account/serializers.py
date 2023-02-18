@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from rest_framework   import serializers
+
 from .tasks import send_activation_code_celery
 
 

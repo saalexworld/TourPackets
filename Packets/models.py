@@ -1,6 +1,7 @@
 from django.db import models
 from slugify import slugify
 
+
 class Packet(models.Model):
     paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='pakets')
     paket_title = models.CharField(max_length=250) # название
@@ -17,6 +18,7 @@ class Packet(models.Model):
 
     def __str__(self):
         return f"{self.paket_title}, {self.paket_category}" 
+
 
 class PacketImage(models.Model):
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
@@ -47,6 +49,7 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save()
+    
     
     class Meta:
         verbose_name = 'Category'

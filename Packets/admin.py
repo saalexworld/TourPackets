@@ -1,10 +1,10 @@
 from django.contrib import admin
+
 from .models import Packet, Category, PacketImage, Hotel
 
 
 class PacketImageInline(admin.TabularInline):
     model = PacketImage
-
 
 
 class PacketAdmin(admin.ModelAdmin):
