@@ -5,7 +5,6 @@ from rest_framework   import serializers
 
 from .tasks import send_activation_code_celery
 
-
 User = get_user_model()
 
 
@@ -13,7 +12,6 @@ class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(min_length=4, required=True, write_only=True)
     password_confirm = serializers.CharField(min_length=4, required=True, write_only=True)
-
 
     class Meta:
         model = User
@@ -38,8 +36,6 @@ class RegistrationSerializer(serializers.Serializer):
 
 
 class ReadInfoSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = User
         fields = ('email', 'last_login', 'date_joined', 'is_staff')
@@ -108,7 +104,6 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate_old_password(self, old_pass):
         request = self.context.get('request')
         user = request.user
-
         if not user.check_password(old_pass):
             raise serializers.ValidationError('Введите корректный пароль')
         return old_pass
@@ -117,10 +112,8 @@ class ChangePasswordSerializer(serializers.Serializer):
         old_pass = attrs.get('old_password')
         new_pass1 = attrs.get('new_password')
         new_pass2 = attrs.get('new_password_confirm')
-
         if new_pass2 != new_pass1:
             raise serializers.ValidationError('Пароли не совпадают')
-
         if old_pass == new_pass1:
             raise serializers.ValidationError('Пароли совпадают')
         return attrs
@@ -149,8 +142,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
             'Восстановление пароля',
             f'Ваш код восстановления: {user.activation_code}',
             'example@gmail.com',
-            [user.email]
-        )
+            [user.email])
 
 
 class ForgotPasswordCompleteSerializer(serializers.Serializer):
@@ -164,11 +156,9 @@ class ForgotPasswordCompleteSerializer(serializers.Serializer):
         code = attrs.get('code')
         password1 = attrs.get('password')
         password2 = attrs.get('password_confirm')
-
         if not User.objects.filter(email=email,
                 activation_code=code).exists():
             raise serializers.ValidationError('Пользователь не найден или неправильный код')
-
         if password1 != password2:
             raise serializers.ValidationError('Пароли не совпадают')
         return attrs
@@ -180,3 +170,4 @@ class ForgotPasswordCompleteSerializer(serializers.Serializer):
         user.set_password(password)
         user.activation_code = ''
         user.save()
+        

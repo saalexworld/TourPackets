@@ -41,3 +41,4 @@ uritemplate
 urllib3
 vine
 wcwidth
+python-slugify

@@ -5,21 +5,18 @@ from .views import RegistrationView, LoginView, ForgotPasswordView, ChangePasswo
 
 
 class UserTest(APITestCase):
-    
     def setUp(self):
         self.factory = APIRequestFactory()
         self.user = User.objects.create_user(
             email='user@gmail.com', 
             password='1234', 
-            is_active=True
-        )
+            is_active=True)
 
     def test_register(self):
         data = {
             'email': 'new_user@gmail.com',
             'password':'1234', 
-            'password_confirm':'1234', 
-        }
+            'password_confirm':'1234',}
         request = self.factory.post('register/', data, format='json')
         view = RegistrationView.as_view()
         responce = view(request)
@@ -29,8 +26,7 @@ class UserTest(APITestCase):
     def test_login(self):
         data = {
             'email':'jykymyrza@gmail.com', 
-            'password':'1234'
-        }
+            'password':'1234'}
         request = self.factory.post('login/', data, format='json')
         view = LoginView.as_view()
         responce = view(request)
@@ -42,8 +38,7 @@ class UserTest(APITestCase):
         data = {
             'old_password':'1234', 
             'new_password':'9876', 
-            'new_password_confirm':'9876'
-        }
+            'new_password_confirm':'9876'}
         request = self.factory.post('change_password/', data, format='json')
         force_authenticate(request, user=self.user)
         view = ChangePasswordView.as_view()
@@ -63,6 +58,5 @@ class UserTest(APITestCase):
             'code':request, 
             'email':'jykymyrza@gmail.com', 
             'password1':'1234',
-            'password2':'1234'    
-        }
+            'password2':'1234'}
         request = self.factory.post('forgot_password_complete/', data=data, format='json')

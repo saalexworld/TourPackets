@@ -14,7 +14,6 @@ UpdateUserSerializer
 
 
 class RegistrationView(APIView):
-
     @swagger_auto_schema(request_body=RegistrationSerializer())
     def post(self, request):
         data = request.data
@@ -26,8 +25,7 @@ class RegistrationView(APIView):
         status=201)
 
 
-class ActivationView(APIView):
-    
+class ActivationView(APIView): 
     def get(self, request, email, activation_code):
         user = User.objects.filter(email=email, 
         activation_code=activation_code).first()
@@ -85,7 +83,6 @@ class ChangePasswordView(APIView):
 
 
 class ForgotPasswordView(APIView):
-
     @swagger_auto_schema(request_body=ForgotPasswordSerializer())
     def post(self, request):
         serializer = ForgotPasswordSerializer(data = request.data)
@@ -95,7 +92,6 @@ class ForgotPasswordView(APIView):
 
 
 class ForgotPasswordCompleteView(APIView):
-
     @swagger_auto_schema(request_body=ForgotPasswordCompleteSerializer())
     def post(self, request):
         serializer = ForgotPasswordCompleteSerializer(data=request.data)
