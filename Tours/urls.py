@@ -21,13 +21,14 @@ from drf_yasg.views import get_schema_view
 
 
 schema_view = get_schema_view(openapi.Info(
-    title='Документация по Турам',
-    description='Веб-сайт по поиску тур-путешествий',
+    title='Документация для проекта "Туристические путешествия"',
+    description='Сайт "Туристические путешествия"',
     default_version='v1'
 ), public=True)
 
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('docs/', schema_view.with_ui('swagger')),
     path('api/v1/', include('account.urls')),

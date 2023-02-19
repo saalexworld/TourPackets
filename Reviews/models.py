@@ -11,7 +11,6 @@ class Comment(models.Model):
     body = models.TextField()
     packet = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='comments')
     created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
         return self.body
@@ -28,7 +27,7 @@ class Like(models.Model):
 
 class LikeComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='liked')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='liked')
     is_liked = models.BooleanField(default=False)
 
     def __str__(self) -> str:
@@ -41,3 +40,12 @@ class Rating(models.Model):
 
     def __str__(self) -> str:
         return f'{self.rating} -> {self.packet}'
+
+
+class Favorite(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    packet = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='favorites')
+    is_favorite = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f'{self.is_favorite} favorite by {self.author.email}'

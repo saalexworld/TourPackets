@@ -5,8 +5,8 @@ from rest_framework import status
 # from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets
 
-from .models import Payment,Status , Favorite
-from .serializers import PaymentSerializer, StatusSerializer, FavoriteSerializer
+from .models import Payment,Status #, Favorite
+from .serializers import PaymentSerializer, StatusSerializer#, FavoriteSerializer
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -27,9 +27,9 @@ class PaymentItemViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
 
 
-class FavoriteViewSet(viewsets.ModelViewSet):
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
+# class FavoriteViewSet(viewsets.ModelViewSet):
+#     queryset = Favorite.objects.all()
+#     serializer_class = FavoriteSerializer
 
 
 class StatusViewSet(viewsets.ModelViewSet):

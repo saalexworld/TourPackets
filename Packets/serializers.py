@@ -2,7 +2,8 @@ from django.db.models import Avg
 from rest_framework import serializers
 
 from .models import Packet, PacketImage, Category, Hotel
-from Reviews.serializers import RatingSerializer, CommentSerializer
+from Reviews.serializers import RatingSerializer, CommentSerializer, \
+FavoriteSerializer
 from Reviews.models import Comment
 
 
@@ -24,8 +25,9 @@ class PacketSerializer(serializers.ModelSerializer):
         representation['comments'] = [i.body for i in instance.comments.all()]
         representation['ratings'] = instance.ratings.aggregate(Avg('rating'))['rating__avg']
         representation['likes_count'] = instance.likes.count()
+        representation['favorites'] = FavoriteSerializer(instance.favorites.all(), many=True).data 
         return representation
-    
+
 
 class PacketImageSerializer(serializers.ModelSerializer):
     class Meta:

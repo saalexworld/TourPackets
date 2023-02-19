@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Like, LikeComment, Rating
+from .models import Comment, Like, LikeComment, Rating, Favorite
 
 
 class RatingAdmin(admin.ModelAdmin):
@@ -21,7 +21,7 @@ admin.site.register(Like, LikeAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
     list_filter = ['packet']
-    list_display = ['author', 'packet', 'created_at', 'updated_at', 'body']
+    list_display = ['author', 'packet', 'created_at', 'body']
     search_fields = ['author', 'packet']
 
 admin.site.register(Comment, CommentAdmin)
@@ -37,3 +37,11 @@ admin.site.register(LikeComment, LikeCommentAdmin)
 
 class LikeCommentInline(admin.TabularInline):
     model = LikeComment
+
+
+class FavoriteAdmin(admin.ModelAdmin):
+    list_filter = ['author']
+    list_display = ['author', 'packet']
+    search_fields = ['packet']
+
+admin.site.register(Favorite, FavoriteAdmin)

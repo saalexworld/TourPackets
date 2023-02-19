@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Payment, PaymentItem, Status, Favorite
+from .models import Payment, PaymentItem, Status#, Favorite
 
 
 class PaymentItemSerializer(serializers.ModelSerializer):
@@ -39,14 +39,14 @@ class PaymentSerializer(serializers.ModelSerializer):
         return payment
 
 
-class FavoriteSerializer(serializers.ModelSerializer):
-    product = serializers.ReadOnlyField()
-    author = serializers.ReadOnlyField(source='author.email')
+# class FavoriteSerializer(serializers.ModelSerializer):
+#     product = serializers.ReadOnlyField()
+#     author = serializers.ReadOnlyField(source='author.email')
 
 
-    class Meta:
-        model = Favorite
-        fields = '__all__'
+#     class Meta:
+#         model = Favorite
+#         fields = '__all__'
         
 
 class StatusSerializer(serializers.ModelSerializer):

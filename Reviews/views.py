@@ -2,12 +2,11 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from rest_framework.permissions import AllowAny
-
-from .models import Like, Rating, Comment, LikeComment
-from .serializers import CommentSerializer, RatingSerializer, \
-LikeCommentSerializer, LikeSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from .models import Like, Rating, Comment, LikeComment, Favorite
+from .serializers import CommentSerializer, RatingSerializer, \
+LikeCommentSerializer, LikeSerializer, FavoriteSerializer
 from .permissions import IsAuthorOrReadOnly
 
 
@@ -23,12 +22,12 @@ class PermissionMixin:
 
 
 class LikeCommentViewSet(PermissionMixin,ModelViewSet):
-    queryset = LikeComment.objects.all()
+    queryset = LikeComment.objects.get_queryset().order_by('id')
     serializer_class = LikeCommentSerializer
 
 
 class CommentViewSet(PermissionMixin,ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.get_queryset().order_by('id')
     serializer_class = CommentSerializer
 
     @action(methods=['POST'], detail=True)
@@ -48,10 +47,15 @@ class CommentViewSet(PermissionMixin,ModelViewSet):
 
 
 class RatingViewSet(PermissionMixin,ModelViewSet):
-    queryset = Rating.objects.all()
+    queryset = Rating.objects.get_queryset().order_by('id')
     serializer_class = RatingSerializer
 
 
 class LikeViewSet(PermissionMixin,ModelViewSet):
-    queryset = Like.objects.all()
+    queryset = Like.objects.get_queryset().order_by('id')
     serializer_class = LikeSerializer
+
+
+class FavoriteViewSet(PermissionMixin, ModelViewSet):
+    queryset = Favorite.objects.get_queryset().order_by('id')
+    serializer_class = FavoriteSerializer

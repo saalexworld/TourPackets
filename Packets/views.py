@@ -9,9 +9,9 @@ from rest_framework.response import Response
 
 from .serializers import PacketSerializer, PacketImageSerializer, CategorySerializer, HotelSerializer
 from .models import Packet, PacketImage, Category, Hotel
-from Payments.models import Favorite
-from Reviews.serializers import LikeSerializer, Like
-from Payments.serializers import FavoriteSerializer
+from Reviews.models import Favorite
+from Reviews.serializers import LikeSerializer, Like, FavoriteSerializer
+# from Payments.serializers import FavoriteSerializer
 # from rest_framework.response import Response
 
 
@@ -25,58 +25,56 @@ class PermissionMixin():
 
 
 class PacketViewSet(PermissionMixin, ModelViewSet):
-    queryset = Packet.objects.all()
+    queryset = Packet.objects.get_queryset().order_by('id')
     serializer_class = PacketSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['title', 'price']
 
-    @action(methods=['POST'], detail=True)   # detail=True - какое количнество элементов, тру - все
+    @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
         packet = self.get_object()
-        author = request.user # создадим автора из реквеста чтобы поле было автоматически заполнено
+        author = request.user 
         serializer = LikeSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            # print(serializer.validated_data)
             try:
-                like = Like.objects.get(packet=packet, author=author) # чтобы автора отслежаваить
+                like = Like.objects.get(packet=packet, author=author)
                 like.delete()
-                # like.is_liked = not like.is_liked
-                # like.save()
-                message = 'disliked' # выводи сообщение о лайке или дизлайке
+                message = 'disliked' 
             except Like.DoesNotExist:
-                Like.objects.create(packet=packet, is_liked=True, author=author) # если лайка нет, то создадим его
+                Like.objects.create(packet=packet, is_liked=True, author=author)
                 message = 'liked'
             return Response(message, status=200)
 
-    @action(methods=['POST'], detail=True)# detail=True -одлин объект
+    @action(methods=['POST'], detail=True)
     def favorite(self, request, pk=None):
         packet = self.get_object()
         author = request.user
-        serializer = FavoriteSerializer(data=request.data) # сериализуем наши данные (из джейсона в  питон файл)
+        serializer = FavoriteSerializer(data=request.data) 
         if serializer.is_valid(raise_exception=True):
             try:
                 favorite = Favorite.objects.get(packet=packet, author=author)
                 favorite.delete()
+                message = 'deleted from favotites'
             except Favorite.DoesNotExist:
                 Favorite.objects.create(packet=packet, author=author, is_favorite=True)
-                message = 'deleted from favotites'
+                message = 'added to favotites'
             return Response(message, status=200)
 
 
 class PacketImageViewSet(PermissionMixin, ModelViewSet):
-    queryset = PacketImage.objects.all()
+    queryset = PacketImage.objects.get_queryset().order_by('id')
     serializer_class = PacketImageSerializer
     
 
 class CategoryViewSet(PermissionMixin, ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.get_queryset().order_by('id')
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['title']
 
 
 class HotelViewSet(PermissionMixin, ModelViewSet):
-    queryset = Hotel.objects.all()
+    queryset = Hotel.objects.get_queryset().order_by('id')
     serializer_class = HotelSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['title', 'country']

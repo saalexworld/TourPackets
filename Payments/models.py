@@ -34,17 +34,17 @@ class PaymentItem(models.Model):
     packet = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='packet_item')
     quantity = models.PositiveIntegerField(default=1)
 
-class Favorite(models.Model):
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='favorites'
-    )
-    packet = models.ForeignKey(
-        Packet, on_delete=models.CASCADE, related_name='favorites'
-    )
-    is_favorite = models.BooleanField(default=False)
+# class Favorite(models.Model):
+#     author = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='favorites'
+#     )
+#     packet = models.ForeignKey(
+#         Packet, on_delete=models.CASCADE, related_name='favorites'
+#     )
+#     is_favorite = models.BooleanField(default=False)
 
-    def __str__(self) -> str:
-        return f'{self.is_favorite} favorite by {self.author.email}'
+#     def __str__(self) -> str:
+#         return f'{self.is_favorite} favorite by {self.author.email}'
     
 
 class Status(models.Model):

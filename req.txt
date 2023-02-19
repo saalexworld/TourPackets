@@ -1,7 +1,6 @@
 amqp
 asgiref
 async-timeout
-billiard
 celery
 certifi
 charset-normalizer
@@ -42,3 +41,4 @@ urllib3
 vine
 wcwidth
 python-slugify
+jango-grappelli
