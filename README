@@ -29,7 +29,7 @@ nano .env
 SECRET_KEY = django-insecure-40n^+h%z)gfp@1cxr=n8!zc5c+reo##2u07)h_mps3s9*ivlto
 DEBUG = False
 
-USER = <name yout user>
+USER = <name your user>
 PASSWORD = <your password>
 NAME = (<name_db> -> название базы данных любое -> ваща база дынных для проета)
 ENGINE = django.db.backends.postgresql
