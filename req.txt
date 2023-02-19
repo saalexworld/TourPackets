@@ -1,7 +1,6 @@
 amqp
 asgiref
 async-timeout
-billiard
 celery
 certifi
 charset-normalizer
