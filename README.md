@@ -69,10 +69,10 @@ python manage.py createsuperuser
 13) Запускаем локальный сервер                                             
 python manage.py runserver
 
-14)Запускаем celery (для удобства испоьзуйте второе окно в консоле)       
+14) Запускаем celery (для удобства испоьзуйте второе окно в консоле)       
 celery -A Tours worker --loglevel=INFO
 
-15)Доступ к админ-панели по адресу                                        
+15) Доступ к админ-панели по адресу                                        
 http://127.0.0.1:8000/admin/    
 
 
