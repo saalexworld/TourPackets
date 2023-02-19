@@ -93,8 +93,9 @@ cat .git/config
 
 
 Основные команды для использования GIT:
-1)
-…or create a new repository on the command line
+
+1) Создайте новый репозиторий в командной строке
+
 echo "# TourPackets" >> README.md
 git init
 git add README.md
@@ -103,8 +104,8 @@ git branch -M master
 git remote add origin https://github.com/saalexworld/TourPackets.git
 git push -u origin master
 
-2)
-…or push an existing repository from the command line
+2) Запустите существующий репозиторий из командной строки
+
 git remote add origin https://github.com/saalexworld/TourPackets.git
 git branch -M master
 git push -u origin master
