@@ -10,7 +10,7 @@ cd TourPackets
 python3 -m venv venv
 
 4) Запускаем виртуальное окружение                                        
-source env/bin/activate
+. venv/bin/activate
 
 5) Обновляем систему управления пакетами                                  
 pip install --upgrade pip
@@ -18,10 +18,44 @@ pip install --upgrade pip
 6) Устанавливаем в виртуальном окружении зависимости для проекта          
 pip install -r req.txt
 
-7) Устанавливаем в виртуальном окружении
-pip install celery
+7) Создаем в рабочей директории TourPackets файл со скрытыми настройками
+touch .env
 
-8) Создаём базу данных (для postgreSQL)(<name_db> -> название базы данных любое)                                   
+8) Открываем файл со крытыми настройками
+nano .env
+
+9) Заполняем файл со скрытыми настройками 
+
+SECRET_KEY = django-insecure-40n^+h%z)gfp@1cxr=n8!zc5c+reo##2u07)h_mps3s9*ivlto
+DEBUG = False
+
+USER = <name yout user>
+PASSWORD = <your password>
+NAME = (<name_db> -> название базы данных любое -> ваща база дынных для проета)
+ENGINE = django.db.backends.postgresql
+PORT = 5432
+HOST = localhost
+
+EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST = smtp.gmail.com
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = <your emeil@gmail.com>
+EMAIL_HOST_PASSWORD = <your emeil app code> (необходимо создать в настройках gmail)***
+
+      *** - как настроить EMAIL_HOST_PASSWORD
+          - настройте двухэтапную аутентификацию, так как без нее не реализовать данные настройки
+          - перейти в свой личный "Google account"
+          - перейти в раздел "Безопасность"
+          - найти раздел/окно "Вход в аккаунт Google"
+          - найти и перейти в данном разделе/окне кнопку "Пароли приложений"
+          - в окне "Ваши пароли приложений" выбрать "Приложение" -> выбрать "Другое (введите название)" -> ввести название: QDPro
+          - в окне "Ваши пароли приложений" выбрать "Устройство" -> выбрать "Другое (введите название)" -> ничего не вводим здесь
+          - нажимаем на кнопку "Создать"
+          - появляется окно с PASSWORD который необходимо сохранить! ВАЖНО! сохраните код надежно, так как больше вы его не увидите!
+          - всё! вы получили PASSWORD и можете его вставить в раздел EMAIL_HOST_PASSWORD = <your emeil app code>
+
+8) Создаём базу данных (для postgreSQL)(<name_db> -> название базы данных любое  -> ваща база дынных для проета)                                   
 psql 
 create database <name_db> ;
 \q
