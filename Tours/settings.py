@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'account',
     'Packets',
     'Reviews',
-    'Payments'
 ]
 
 
@@ -243,3 +242,4 @@ LOGGING = {
 #         'LOCATION': os.path.join(BASE_DIR, 'Tours_cache'),
 #     }
 # }
+# 

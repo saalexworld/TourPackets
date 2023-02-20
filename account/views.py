@@ -44,6 +44,7 @@ class LoginView(ObtainAuthToken):
 class DeleteUserView(APIView):
     permission_classes = [IsAuthenticated, IsAuthor]
 
+    @swagger_auto_schema()
     def delete(self, request):
         request.user.delete()
         return Response(status=204)
@@ -62,7 +63,7 @@ class UpdateUserView(APIView):
 
 class ReadInfoView(APIView):
     permission_classes = [IsAuthenticated]
-    
+    @swagger_auto_schema()
     def get(self, request, email=None):
         if email is None:
             email = request.user.email
