@@ -11,8 +11,8 @@ class Packet(models.Model):
     date_end = models.DateTimeField() 
     price = models.IntegerField() 
     quantity = models.IntegerField()
-    from_packet = models.CharField(max_length=100) #departure
-    to_packet = models.CharField(max_length=100) #arrival
+    departure = models.CharField(max_length=100) 
+    arrival = models.CharField(max_length=100) 
     description = models.TextField() 
     schedule = models.FileField()  
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='packets')
@@ -75,19 +75,20 @@ class HotelImage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-CATEGORY_TOUR = [
-        ('BEACHES', 'beaches',),
-        ('ICONIC CITIES', 'iconic cities',),
-        ('DESERTS', 'deserts',),
-        ('MOUNTAINS', 'mountains',),
-        ('SKIING', 'skiing',),
-        ('CAMPING', 'camping',),
-        ('TROPIC', 'tropic', )
-    ]
-
+# CATEGORY_TOUR = [
+#         ('BEACHES', 'beaches',),
+#         ('ICONIC CITIES', 'iconic cities',),
+#         ('DESERTS', 'deserts',),
+#         ('MOUNTAINS', 'mountains',),
+#         ('SKIING', 'skiing',),
+#         ('CAMPING', 'camping',),
+#         ('TROPIC', 'tropic', )
+#     ]
+# choices=CATEGORY_TOUR (добавить в поле для дальнейшего использования окна выбора)
 
 class Category(models.Model):
-    title = models.CharField(max_length=200, choices=CATEGORY_TOUR)
+    title = models.CharField(max_length=255)
+    descriptions = models.TextField()
 
     def __str__(self) -> str:
         return self.title

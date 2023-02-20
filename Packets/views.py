@@ -28,7 +28,7 @@ class PacketViewSet(PermissionMixin, ModelViewSet):
     queryset = Packet.objects.get_queryset().order_by('id')
     serializer_class = PacketSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['title', 'price']
+    search_fields = ['arrival']
 
     @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
@@ -70,7 +70,7 @@ class CategoryViewSet(PermissionMixin, ModelViewSet):
     queryset = Category.objects.get_queryset().order_by('id')
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['title']
+    search_fields = ['title_1', 'title_2', 'title_3', 'title_4', 'title_5', 'title_6', 'title_7']
 
 
 class HotelViewSet(PermissionMixin, ModelViewSet):

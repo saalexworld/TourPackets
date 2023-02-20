@@ -8,18 +8,19 @@ class PacketImageInline(admin.TabularInline):
 
 
 class PacketAdmin(admin.ModelAdmin):
-    list_filter = ['title']
-    list_display = ['title', 'paket_category', 'price']
-    search_fields = ['title' ,'packet_category', 'description']
+    list_filter = ['paket_category']
+    list_display = ['title', 'paket_category', 'price', 'arrival']
+    search_fields = ['arrival']
     inlines = [PacketImageInline]
 
 admin.site.register(Packet, PacketAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['title']
     list_filter = ['title']
-    # list_display = ['title', 'paket_category', 'price']
-    # search_fields = ['title' ,'packet_category', 'description']
+    search_fields = ['title']
+
 
 admin.site.register(Category, CategoryAdmin)
 
