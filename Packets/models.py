@@ -7,8 +7,8 @@ User = get_user_model()
 
 class Packet(models.Model):
     paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
-    date_start = models.DateTimeField() 
-    date_end = models.DateTimeField() 
+    date_start = models.DateField() 
+    date_end = models.DateField() 
     price = models.IntegerField() 
     quantity = models.IntegerField()
     departure = models.CharField(max_length=100) 
@@ -44,8 +44,8 @@ class PacketImage(models.Model):
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/packet_image/')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
     
 class Hotel(models.Model):
@@ -71,8 +71,8 @@ class HotelImage(models.Model):
     hotel_image = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/hotel_image/')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
 
 # CATEGORY_TOUR = [

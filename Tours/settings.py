@@ -243,3 +243,4 @@ LOGGING = {
 #         'LOCATION': os.path.join(BASE_DIR, 'Tours_cache'),
 #     }
 # }
+# 

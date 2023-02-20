@@ -41,4 +41,4 @@ urllib3
 vine
 wcwidth
 python-slugify
-jango-grappelli
+django-grappelli
