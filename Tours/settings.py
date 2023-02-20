@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'account',
     'Packets',
     'Reviews',
-    'Payments'
 ]
 
 

@@ -7,26 +7,26 @@ User = get_user_model()
 
 class Packet(models.Model):
     paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
-    date_start = models.DateField() 
-    date_end = models.DateField() 
-    price = models.IntegerField() 
-    quantity = models.IntegerField()
-    departure = models.CharField(max_length=100) 
-    arrival = models.CharField(max_length=100) 
-    description = models.TextField() 
-    schedule = models.FileField()  
+    date_start = models.DateField(blank=True) 
+    date_end = models.DateField(blank=True) 
+    price = models.IntegerField(blank=True) 
+    quantity = models.IntegerField(blank=True)
+    departure = models.CharField(max_length=100, blank=True) 
+    arrival = models.CharField(max_length=100, blank=True) 
+    description = models.TextField(blank=True) 
+    schedule = models.FileField(blank=True)  
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='packets')
-    availability = models.IntegerField() 
-    in_stock = models.BooleanField() 
-    image = models.ImageField(upload_to='media/packet/')
+    availability = models.IntegerField(blank=True) 
+    in_stock = models.BooleanField(blank=True) 
+    image = models.ImageField(upload_to='media/packet/', blank=True)
     title = models.CharField(max_length=250) 
-    day_1 = models.TextField()
-    day_2 = models.TextField()
-    day_3 = models.TextField()
-    day_4 = models.TextField()
-    day_5 = models.TextField()
-    day_6 = models.TextField()
-    day_7 = models.TextField()
+    day_1 = models.TextField(blank=True)
+    day_2 = models.TextField(blank=True)
+    day_3 = models.TextField(blank=True)
+    day_4 = models.TextField(blank=True)
+    day_5 = models.TextField(blank=True)
+    day_6 = models.TextField(blank=True)
+    day_7 = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.title}, {self.paket_category}"
@@ -43,14 +43,14 @@ class Packet(models.Model):
 class PacketImage(models.Model):
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='media/packet_image/')
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+    image = models.ImageField(upload_to='media/packet_image/', blank=True)
+    created_at = models.DateField(auto_now_add=True, blank=True)
+    updated_at = models.DateField(auto_now=True, blank=True)
 
     
 class Hotel(models.Model):
     title = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='media/hotel/')
+    image = models.ImageField(upload_to='media/hotel/', blank=True)
     address = models.CharField(max_length=255)
     stars = models.CharField(max_length=255)
     breakfast = models.BooleanField(default=False)
@@ -70,9 +70,9 @@ class Hotel(models.Model):
 class HotelImage(models.Model):
     hotel_image = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='media/hotel_image/')
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+    image = models.ImageField(upload_to='media/hotel_image/', blank=True)
+    created_at = models.DateField(auto_now_add=True, blank=True)
+    updated_at = models.DateField(auto_now=True, blank=True)
 
 
 # CATEGORY_TOUR = [

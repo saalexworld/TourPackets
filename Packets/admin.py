@@ -10,7 +10,7 @@ class PacketImageInline(admin.TabularInline):
 class PacketAdmin(admin.ModelAdmin):
     list_filter = ['paket_category']
     list_display = ['title', 'paket_category', 'price', 'arrival']
-    search_fields = ['arrival']
+    search_fields = ['arrival', 'packet_category', 'title']
     inlines = [PacketImageInline]
 
 admin.site.register(Packet, PacketAdmin)
@@ -38,7 +38,7 @@ class HotelImageInline(admin.TabularInline):
 class HotelAdmin(admin.ModelAdmin):
     list_filter = ['title']
     list_display = ['title', 'address', 'stars']
-    search_fields = ['stars']
+    search_fields = ['title', 'stars']
     inlines = [HotelImageInline]
 
 admin.site.register(Hotel, HotelAdmin)
