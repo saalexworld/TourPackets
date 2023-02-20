@@ -1,12 +1,16 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from drf_yasg.utils import swagger_auto_schema
-from .permissions import IsActivePermission
-from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
+
 from .models import User
-from .serializers import RegistrationSerializer, ActivationSerializer , LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, ForgotPasswordCompleteSerializer
+from .permissions import IsAuthor
+from .serializers import RegistrationSerializer, \
+LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, \
+ForgotPasswordCompleteSerializer, ReadInfoSerializer, \
+UpdateUserSerializer
 
 
 class RegistrationView(APIView):
@@ -16,13 +20,15 @@ class RegistrationView(APIView):
         serializer = RegistrationSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-        return Response(f'Аккаунт успешно создан, мы выслали вам сообщение перейдите по ссылке, чтобы активировать аккаунт', status=201)
+        return Response(f'Аккаунт успешно создан, мы выслали вам' 
+        'сообщение перейдите по ссылке, чтобы активировать аккаунт', 
+        status=201)
 
 
-class ActivationView(APIView):
-    
+class ActivationView(APIView): 
     def get(self, request, email, activation_code):
-        user = User.objects.filter(email=email, activation_code=activation_code).first()
+        user = User.objects.filter(email=email, 
+        activation_code=activation_code).first()
         if not user:
             return Response('Пользователь не существует', status=400)
         user.activation_code = ''
@@ -32,17 +38,36 @@ class ActivationView(APIView):
 
 
 class LoginView(ObtainAuthToken):
-    
     serializer_class = LoginSerializer
 
 
-# class LogoutView(APIView):
-#     permission_classes = [IsActivePermission]
-#     @swagger_auto_schema
-#     def post(self, request):
-        # user = request.user
-        # Token.objects.filter(user=user).delete()
-        # return Response('Вы вышли со своего аккаунта')
+class DeleteUserView(APIView):
+    permission_classes = [IsAuthenticated, IsAuthor]
+
+    def delete(self, request):
+        request.user.delete()
+        return Response(status=204)
+
+
+class UpdateUserView(APIView):
+    permission_classes = [IsAuthenticated, IsAuthor]
+
+    @swagger_auto_schema(request_body=UpdateUserSerializer())
+    def patch(self, request):
+        serializer = UpdateUserSerializer(request.user, request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=201)
+
+
+class ReadInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, email=None):
+        if email is None:
+            email = request.user.email
+        user = get_object_or_404(User, email=email)
+        return Response(ReadInfoSerializer(user).data)
 
 
 class ChangePasswordView(APIView):
@@ -50,7 +75,8 @@ class ChangePasswordView(APIView):
 
     @swagger_auto_schema(request_body=ChangePasswordSerializer())
     def post(self, request):
-        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+        serializer = ChangePasswordSerializer(data=request.data, 
+        context={'request': request})
         if serializer.is_valid(raise_exception=True):
             serializer.set_new_password()
             return Response('Пароль успешно обновлен')

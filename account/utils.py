@@ -7,9 +7,8 @@ def send_activation_code(email, activation_code):
     context = {
         'text_detail': 'Спасибо за регистрацию',
         'email': email,
-        'domain': 'http://127.0.0.1:8000', #'http://34.70.204.237'
-        'activation_code': activation_code,
-    }
+        'domain': 'http://127.0.0.1:8000', #'http://34.70.204.237' #'https://localhost:3000/login/'
+        'activation_code': activation_code,}
 
     msg_html = render_to_string("email.html", context)
     message = strip_tags(msg_html)
@@ -19,5 +18,5 @@ def send_activation_code(email, activation_code):
         'admin@gmail.com',
         [email],
         html_message=msg_html,
-        fail_silently=False,
-    )
+        fail_silently=False,)
+        

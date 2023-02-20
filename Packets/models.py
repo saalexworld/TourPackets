@@ -1,22 +1,44 @@
 from django.db import models
-from slugify import slugify
+from django.contrib.auth import get_user_model
+# from slugify import slugify
+
+User = get_user_model()
+
 
 class Packet(models.Model):
-    paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='pakets')
-    paket_title = models.CharField(max_length=250) # название
-    image = models.ImageField(upload_to='media/packet_image/')
-    price = models.IntegerField() # цена
-    description = models.TextField() # описание
-    date_start = models.DateTimeField() # начало
-    date_end = models.DateTimeField() # конец 
-    availability = models.IntegerField() # cвободные места
-    in_stock = models.BooleanField() # в наличии
-    quantity = models.IntegerField()  # общее кол-во
-    schedule = models.FileField()  #план тура
-    hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='pakets')
+    paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
+    date_start = models.DateTimeField() 
+    date_end = models.DateTimeField() 
+    price = models.IntegerField() 
+    quantity = models.IntegerField()
+    from_packet = models.CharField(max_length=100) #departure
+    to_packet = models.CharField(max_length=100) #arrival
+    description = models.TextField() 
+    schedule = models.FileField()  
+    hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='packets')
+    availability = models.IntegerField() 
+    in_stock = models.BooleanField() 
+    image = models.ImageField(upload_to='media/packet/')
+    title = models.CharField(max_length=250) 
+    day_1 = models.TextField()
+    day_2 = models.TextField()
+    day_3 = models.TextField()
+    day_4 = models.TextField()
+    day_5 = models.TextField()
+    day_6 = models.TextField()
+    day_7 = models.TextField()
 
     def __str__(self):
-        return f"{self.paket_title}, {self.paket_category}" 
+        return f"{self.title}, {self.paket_category}"
+    
+    # slug = models.SlugField(max_length=200, primary_key=True, blank=True, unique=True)
+    # настроить по возможности
+ 
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save()
+
 
 class PacketImage(models.Model):
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
@@ -28,27 +50,56 @@ class PacketImage(models.Model):
     
 class Hotel(models.Model):
     title = models.CharField(max_length=250)
-    country = models.CharField(max_length=250)
+    image = models.ImageField(upload_to='media/hotel/')
     address = models.CharField(max_length=255)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='image')
+    stars = models.CharField(max_length=255)
+    breakfast = models.BooleanField(default=False)
+    description = models.TextField()
 
     def __str__(self):
-        return f"{self.title}, {self.country}" 
+        return f"{self.title}, {self.stars}" 
+    
+    # slug = models.SlugField(max_length=200, primary_key=True, blank=True, unique=True)
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save()
+
+
+class HotelImage(models.Model):
+    hotel_image = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='images')
+    is_active = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='media/hotel_image/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+CATEGORY_TOUR = [
+        ('BEACHES', 'beaches',),
+        ('ICONIC CITIES', 'iconic cities',),
+        ('DESERTS', 'deserts',),
+        ('MOUNTAINS', 'mountains',),
+        ('SKIING', 'skiing',),
+        ('CAMPING', 'camping',),
+        ('TROPIC', 'tropic', )
+    ]
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=200, unique=True, verbose_name='Название категории')
-    slug = models.SlugField(max_length=30, primary_key=True, blank=True, unique=True)
+    title = models.CharField(max_length=200, choices=CATEGORY_TOUR)
 
     def __str__(self) -> str:
         return self.title
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save()
-    
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+
+    # slug = models.SlugField(max_length=30, primary_key=True, blank=True, unique=True)
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save()
     

@@ -1,4 +1,5 @@
 from .utils import send_activation_code
+
 from Tours.celery import app
 
 
