@@ -75,8 +75,19 @@ class HotelImage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+CATEGORY_TOUR = [
+        ('BEACHES', 'beaches',),
+        ('ICONIC CITIES', 'iconic cities',),
+        ('DESERTS', 'deserts',),
+        ('MOUNTAINS', 'mountains',),
+        ('SKIING', 'skiing',),
+        ('CAMPING', 'camping',),
+        ('TROPIC', 'tropic', )
+    ]
+
+
 class Category(models.Model):
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=200, choices=CATEGORY_TOUR)
 
     def __str__(self) -> str:
         return self.title
@@ -84,14 +95,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-
-    # beaches 
-    # iconic cities
-    # deserts
-    # mountains
-    # skiing
-    # camping
-    # tropic
 
     # slug = models.SlugField(max_length=30, primary_key=True, blank=True, unique=True)
 
