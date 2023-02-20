@@ -84,7 +84,7 @@ class HotelImage(models.Model):
 #         ('CAMPING', 'camping',),
 #         ('TROPIC', 'tropic', )
 #     ]
-# choices=CATEGORY_TOUR (добавить в поле для дальнейшего использования окна выбора)
+# choices=CATEGORY_TOUR (добавить в поле для использования)
 
 class Category(models.Model):
     title = models.CharField(max_length=255)

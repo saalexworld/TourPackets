@@ -1,9 +1,7 @@
-# from django.contrib.auth.models import User
-# from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAdminUser, AllowAny #IsAuthenticated,
+from rest_framework.permissions import IsAdminUser, AllowAny 
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -11,8 +9,6 @@ from .serializers import PacketSerializer, PacketImageSerializer, CategorySerial
 from .models import Packet, PacketImage, Category, Hotel
 from Reviews.models import Favorite
 from Reviews.serializers import LikeSerializer, Like, FavoriteSerializer
-# from Payments.serializers import FavoriteSerializer
-# from rest_framework.response import Response
 
 
 class PermissionMixin():

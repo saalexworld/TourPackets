@@ -23,7 +23,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class RatingSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.email')
+    author = serializers.ReadOnlyField(source='user_set.count', read_only=True)
 
     class Meta:
         model = Rating
@@ -31,24 +31,21 @@ class RatingSerializer(serializers.ModelSerializer):
 
     def validate_rating(self, rating):
         if rating not in range(1, 6):
-            raise serializers.ValidationError('Рейтиенг не может быть меньще 1 и больше 5')
+            raise serializers.ValidationError('Рейтинг не может быть меньше 1 и больше 5')
         return rating
 
-    def validate_packet(self, packet):
-        if  self.Meta.model.objects.filter(packet=packet):
-            raise serializers.ValidationError('Вы уже оставляли рейтинг')
-        return packet
+    def validate(self, attrs):
+        author = self.context.get("request").user
+        length = (attrs.get("packet").ratings.filter(author=author)).count()
+        if length > 0:
+            raise serializers.ValidationError("Вы можете оставлять только 1 раз рейтинг")
+        return super().validate(attrs)
 
     def create(self, validated_data):
         request = self.context.get('request')
         user = request.user
         rating = Rating.objects.create(author=user, **validated_data)
         return rating
-
-    # def to_representation(self, instance): 
-    #     representation = super().to_representation(instance)
-    #     representation['rating_count'] = instance.ratings.count()
-    #     return representation
     
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -64,11 +61,6 @@ class LikeSerializer(serializers.ModelSerializer):
         user = request.user 
         like = Like.objects.create(author=user, **validated_data)
         return like
-
-    # def to_representation(self, instance): 
-    #     representation = super().to_representation(instance)
-    #     representation['like_count'] = instance.likes.count()
-    #     return representation
 
 
 class LikeCommentSerializer(serializers.ModelSerializer):
@@ -93,14 +85,3 @@ class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
         fields = '__all__'
-
-    # def create(self, validated_data):
-    #     request = self.context.get('request')
-    #     user = request.user
-    #     favorite = Favorite.objects.create(author=user, **validated_data)
-    #     return favorite
-
-    # def to_representation(self, instance): 
-    #     representation = super().to_representation(instance)
-    #     representation['favorite_count'] = instance.favorit.all()
-    #     return representation
