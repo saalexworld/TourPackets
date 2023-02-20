@@ -46,12 +46,12 @@ class CommentViewSet(PermissionMixin,ModelViewSet):
             return Response(message, status=200)
 
 
-class RatingViewSet(PermissionMixin,ModelViewSet):
+class RatingViewSet(PermissionMixin, ModelViewSet):
     queryset = Rating.objects.get_queryset().order_by('id')
     serializer_class = RatingSerializer
 
 
-class LikeViewSet(PermissionMixin,ModelViewSet):
+class LikeViewSet(PermissionMixin, ModelViewSet):
     queryset = Like.objects.get_queryset().order_by('id')
     serializer_class = LikeSerializer
 

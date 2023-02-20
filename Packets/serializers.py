@@ -26,7 +26,6 @@ class PacketSerializer(serializers.ModelSerializer):
         representation['ratings'] = instance.ratings.aggregate(Avg('rating'))['rating__avg']
         representation['likes_count'] = instance.likes.count()
         representation['favorites'] = FavoriteSerializer(instance.favorites.all(), many=True).data 
-        # representation['quantity'] = PacketSerializer(instance.ratings.all(), many=True).data 
         return representation
 
 
