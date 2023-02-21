@@ -30,7 +30,7 @@ class Packet(models.Model):
     day_7 = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.title}, {self.paket_category}"
+        return f"{self.title}, {self.packet_category}"
     
     # slug = models.SlugField(max_length=200, primary_key=True, blank=True, unique=True)
     # настроить по возможности

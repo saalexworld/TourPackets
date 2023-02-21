@@ -30,7 +30,6 @@ class UserTest(APITestCase):
         request = self.factory.post('login/', data, format='json')
         view = LoginView.as_view()
         responce = view(request)
-        # print(responce.data)
         assert responce.status_code == 200
         assert 'token' in responce.data
 
@@ -50,7 +49,6 @@ class UserTest(APITestCase):
         request = self.factory.post('forgot_password/', data, format='json')
         view = ForgotPasswordView.as_view()
         responce = view(request)
-        # print(responce.data)
         assert responce.status_code == 200
 
     def test_forgot_password_complete(self):

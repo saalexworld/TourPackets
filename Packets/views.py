@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+# from django.views.generic import View
 
 from .serializers import PacketSerializer, PacketImageSerializer, CategorySerializer, HotelSerializer
 from .models import Packet, PacketImage, Category, Hotel

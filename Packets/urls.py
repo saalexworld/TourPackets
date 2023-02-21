@@ -4,7 +4,10 @@ from rest_framework.routers import DefaultRouter
 from .views import PacketViewSet, CategoryViewSet, PacketImageViewSet, HotelViewSet
 
 # urlpatterns = [
-#     path('packets/',cache_page(60) PacketViewSet.as_view()),
+#     path('packets/', cache_page(60) (PacketViewSet.as_view()), name='packets'),
+#     path('image_packets/', PacketImageViewSet.as_view(), name='image_packets'),
+#     path('categories/', CategoryViewSet.as_view(), name='categories'),
+#     path('hotels/', HotelViewSet.as_view(), name='hotels'),
 # ]
 
 router = DefaultRouter()
