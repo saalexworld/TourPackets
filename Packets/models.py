@@ -6,7 +6,8 @@ User = get_user_model()
 
 
 class Packet(models.Model):
-    paket_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    packet_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
     date_start = models.DateField(blank=True) 
     date_end = models.DateField(blank=True) 
     price = models.IntegerField(blank=True) 
@@ -41,6 +42,7 @@ class Packet(models.Model):
 
 
 class PacketImage(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/packet_image/', blank=True)
@@ -49,6 +51,7 @@ class PacketImage(models.Model):
 
     
 class Hotel(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='media/hotel/', blank=True)
     address = models.CharField(max_length=255)
@@ -68,6 +71,7 @@ class Hotel(models.Model):
 
 
 class HotelImage(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     hotel_image = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/hotel_image/', blank=True)
@@ -87,6 +91,7 @@ class HotelImage(models.Model):
 # choices=CATEGORY_TOUR (добавить в поле для использования)
 
 class Category(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=255)
     descriptions = models.TextField()
 

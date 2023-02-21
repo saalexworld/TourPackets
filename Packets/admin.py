@@ -8,8 +8,8 @@ class PacketImageInline(admin.TabularInline):
 
 
 class PacketAdmin(admin.ModelAdmin):
-    list_filter = ['paket_category']
-    list_display = ['title', 'paket_category', 'price', 'arrival']
+    list_filter = ['packet_category']
+    list_display = ['title', 'packet_category', 'price', 'arrival']
     search_fields = ['arrival', 'packet_category', 'title']
     inlines = [PacketImageInline]
 
