@@ -4,6 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser, AllowAny 
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from .serializers import PacketSerializer, PacketImageSerializer, CategorySerializer, HotelSerializer
 from .models import Packet, PacketImage, Category, Hotel
@@ -60,15 +61,22 @@ class PacketViewSet(PermissionMixin, ModelViewSet):
 class PacketImageViewSet(PermissionMixin, ModelViewSet):
     queryset = PacketImage.objects.get_queryset().order_by('id')
     serializer_class = PacketImageSerializer
-    
 
+
+class CategoryPagination(PageNumberPagination):
+    page_size = 7
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+
+    
 class CategoryViewSet(PermissionMixin, ModelViewSet):
+    pagination_class = CategoryPagination
     queryset = Category.objects.get_queryset().order_by('id')
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['title_1', 'title_2', 'title_3', 'title_4', 'title_5', 'title_6', 'title_7']
 
-
+    
 class HotelViewSet(PermissionMixin, ModelViewSet):
     queryset = Hotel.objects.get_queryset().order_by('id')
     serializer_class = HotelSerializer
