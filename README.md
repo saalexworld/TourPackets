@@ -31,17 +31,27 @@ SECRET_KEY = django-insecure-40n^+h%z)gfp@1cxr=n8! zc5c+reo##2u07)h_mps3s9*ivlto
 DEBUG = Ложь
 
 USER = <name user>
+
 PASSWORD = <user password>
+
 NAME = (<name_db> -> название базы данных любое -> ваща база данных для проета)
+
 ENGINE = django.db.backends.postgresql
+
 PORT = 5432
+
 HOST = localhost
 
 EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
+
 EMAIL_HOST = smtp.gmail.com
+
 EMAIL_PORT = 587
+
 EMAIL_USE_TLS = True
+
 EMAIL_HOST_USER = <ваш emeil@gmail.com>
+
 EMAIL_HOST_PASSWORD = <применение emeil> (необходимо создать в настройках gmail)***
 
 *** - как настроить EMAIL_HOST_PASSWORD
