@@ -27,14 +27,15 @@ nano.env
 9) Заполняем файл со скрытыми настройками
 
 SECRET_KEY = django-insecure-40n^+h%z)gfp@1cxr=n8! zc5c+reo##2u07)h_mps3s9*ivlto
+
 DEBUG = Ложь
 
-ПОЛЬЗОВАТЕЛЬ = <назовите пользователя>
-ПАРОЛЬ = <ваш пароль>
+USER = <name user>
+PASSWORD = <user password>
 NAME = (<name_db> -> название базы данных любое -> ваща база данных для проета)
-ДВИГАТЕЛЬ = django.db.backends.postgresql
-ПОРТ = 5432
-HOST = локальный хост
+ENGINE = django.db.backends.postgresql
+PORT = 5432
+HOST = localhost
 
 EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
 EMAIL_HOST = smtp.gmail.com
