@@ -1,4 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser, AllowAny 
@@ -27,6 +29,10 @@ class PacketViewSet(PermissionMixin, ModelViewSet):
     serializer_class = PacketSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['arrival']
+
+    @method_decorator(cache_page(1))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
@@ -77,9 +83,16 @@ class CategoryViewSet(PermissionMixin, ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['title_1', 'title_2', 'title_3', 'title_4', 'title_5', 'title_6', 'title_7']
 
-    
+
+class HotelPagination(PageNumberPagination):
+    page_size = 0
+    page_size_query_param = 'page_size'
+    max_page_size = 0
+
+
 class HotelViewSet(PermissionMixin, ModelViewSet):
+    pagination_class = HotelPagination
     queryset = Hotel.objects.get_queryset().order_by('id')
     serializer_class = HotelSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['title', 'country']
+    search_fields = ['title']
