@@ -10,7 +10,7 @@ class PacketImageInline(admin.TabularInline):
 class PacketAdmin(admin.ModelAdmin):
     list_filter = ['packet_category']
     list_display = ['title', 'packet_category', 'price', 'arrival']
-    search_fields = ['arrival', 'packet_category', 'title']
+    search_fields = ['arrival', 'title']
     inlines = [PacketImageInline]
 
 admin.site.register(Packet, PacketAdmin)

@@ -6,28 +6,28 @@ User = get_user_model()
 
 
 class Packet(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    # id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     packet_category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='packets')
-    date_start = models.DateField(blank=True) 
-    date_end = models.DateField(blank=True) 
-    price = models.IntegerField(blank=True) 
-    quantity = models.IntegerField(blank=True)
+    date_start = models.DateField(blank=True, null=True) 
+    date_end = models.DateField(blank=True, null=True) 
+    price = models.IntegerField(blank=True, null=True) 
+    quantity = models.IntegerField(blank=True, null=True)
     departure = models.CharField(max_length=100, blank=True) 
     arrival = models.CharField(max_length=100, blank=True) 
-    description = models.TextField(blank=True) 
-    schedule = models.FileField(blank=True)  
+    description = models.TextField(blank=True, null=True) 
+    schedule = models.FileField(blank=True, null=True)  
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='packets')
-    availability = models.IntegerField(blank=True) 
-    in_stock = models.BooleanField(blank=True) 
-    image = models.ImageField(upload_to='media/packet/', blank=True)
+    availability = models.IntegerField(blank=True, null=True) 
+    in_stock = models.BooleanField(blank=True, null=True) 
+    image = models.ImageField(upload_to='media/packet/', blank=True, null=True)
     title = models.CharField(max_length=250) 
-    day_1 = models.TextField(blank=True)
-    day_2 = models.TextField(blank=True)
-    day_3 = models.TextField(blank=True)
-    day_4 = models.TextField(blank=True)
-    day_5 = models.TextField(blank=True)
-    day_6 = models.TextField(blank=True)
-    day_7 = models.TextField(blank=True)
+    day_1 = models.TextField(blank=True, null=True)
+    day_2 = models.TextField(blank=True, null=True)
+    day_3 = models.TextField(blank=True, null=True)
+    day_4 = models.TextField(blank=True, null=True)
+    day_5 = models.TextField(blank=True, null=True)
+    day_6 = models.TextField(blank=True, null=True)
+    day_7 = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.title}, {self.packet_category}"
@@ -42,7 +42,7 @@ class Packet(models.Model):
 
 
 class PacketImage(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    # id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     packet_image = models.ForeignKey(Packet, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/packet_image/', blank=True)
@@ -51,7 +51,7 @@ class PacketImage(models.Model):
 
     
 class Hotel(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    # id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='media/hotel/', blank=True)
     address = models.CharField(max_length=255)
@@ -71,7 +71,7 @@ class Hotel(models.Model):
 
 
 class HotelImage(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    # id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     hotel_image = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='images')
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='media/hotel_image/', blank=True)
@@ -91,7 +91,7 @@ class HotelImage(models.Model):
 # choices=CATEGORY_TOUR (добавить в поле для использования)
 
 class Category(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    # id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=255)
     descriptions = models.TextField()
 
